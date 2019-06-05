@@ -1,0 +1,14 @@
+# tell travis that we are using docker
+sudo: required
+services:
+  - docker
+
+# build image of Dockerfile.dev
+before_install:
+  - docker build -t rogerwschmidt/docker-react-example -f Dockerfile.dev .
+
+# run test suite
+script:
+  - docker run rogerwschmidt/docker-react-example npm run test -- --coverage
+
+# Tell travis how to deploy to AWS
